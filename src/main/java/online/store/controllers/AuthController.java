@@ -1,5 +1,6 @@
 package online.store.controllers;
 
+import lombok.Data;
 import online.store.models.ERole;
 import online.store.models.Role;
 import online.store.models.User;
@@ -12,6 +13,8 @@ import online.store.repository.UserRepository;
 import online.store.security.jwt.JwtUtils;
 import online.store.security.services.UserDetailsImpl;
 
+import online.store.services.RoleService;
+import online.store.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,13 +32,15 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@Data
 @RequestMapping("/auth") // /api/auth
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
-
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
+
+    RoleService roleService;
 
     @Autowired
     RoleRepository roleRepository;
@@ -69,13 +74,13 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+        if (userService.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userService.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
@@ -117,7 +122,7 @@ public class AuthController {
         }
 
         user.setRoles(roles);
-        userRepository.save(user);
+        userService.save(user); // userRepository
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
