@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 //@NoArgsConstructor
 @Data
-//@Transactional(readOnly = true)
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -33,13 +33,13 @@ public class UserService {
         return findUser.orElse(null);
     }
 
-    public User findByName(String name){
-        Optional<User> findUser = userRepository.findByUsername(name);
+    public User findByFirstNameAndLastName(String firstName, String lastName){
+        Optional<User> findUser = userRepository.findByFirstNameAndLastName(firstName, lastName);
         return findUser.orElse(null);
     }
 
-    public Boolean existsByUsername(String username){
-        return userRepository.existsByUsername(username);
+    public Boolean existsByFirstNameAndLastName(String firstName, String lastName){
+        return userRepository.existsByFirstNameAndLastName(firstName, lastName);
     }
 
     public Boolean existsByEmail(String email){

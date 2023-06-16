@@ -16,7 +16,11 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Long id;
 
-	private String username;
+	private String firstName;
+
+	private String lastName;
+
+	private String s;
 
 	private String email;
 
@@ -25,10 +29,11 @@ public class UserDetailsImpl implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
+	public UserDetailsImpl(Long id, String firstName, String lastName, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
-		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
@@ -41,7 +46,8 @@ public class UserDetailsImpl implements UserDetails {
 
 		return new UserDetailsImpl(
 				user.getId(), 
-				user.getUsername(), 
+				user.getFirstName(),
+				user.getLastName(),
 				user.getEmail(),
 				user.getPassword(), 
 				authorities);
@@ -67,7 +73,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return username;
+		return null;
 	}
 
 	@Override
@@ -98,5 +104,22 @@ public class UserDetailsImpl implements UserDetails {
 			return false;
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 }
