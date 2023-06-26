@@ -32,4 +32,8 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "wrapper_id"))
     private List<Wrapper> cart;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private User bayer;
+
 }

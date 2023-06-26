@@ -37,11 +37,8 @@ public class Product  {
     @NotBlank
     private int quantity;
 
-
     @NotBlank
     private double price;
-
-
     private double discountPrice;
 
 
@@ -51,7 +48,6 @@ public class Product  {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> idCategory;
 
-
-    @OneToMany(mappedBy = "review")
-    private List<Reviews> reviewsList;
+    @OneToMany(mappedBy = "productReview")
+    private List<Reviews> reviews;
 }

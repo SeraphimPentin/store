@@ -6,8 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Data@Table(name = "reviews")
-
+//@Data@Table(name = "reviews")
+@Data
 public class Reviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,5 @@ public class Reviews {
 
     @ManyToOne
     @JoinColumn(name = "review_id", referencedColumnName = "id")
-    private Product review;
-
-
+    private Product productReview;
 }
