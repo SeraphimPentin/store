@@ -35,9 +35,11 @@ public class User {
 	@Size(max = 40)
 	private String password;
 
+	private ERole userRole;
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable( name = "user_roles",
-				joinColumns = @JoinColumn(name = "user_id"), 
+				joinColumns = @JoinColumn(name = "user_id"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
@@ -101,5 +103,13 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public ERole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(ERole userRole) {
+		this.userRole = userRole;
 	}
 }

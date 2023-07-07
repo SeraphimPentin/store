@@ -1,4 +1,4 @@
-package online.store.security.jwt;
+package online.store.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

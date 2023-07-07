@@ -9,9 +9,10 @@ import online.store.payload.request.SignupRequest;
 import online.store.payload.response.JwtResponse;
 import online.store.payload.response.MessageResponse;
 import online.store.repository.RoleRepository;
-import online.store.security.jwt.JwtUtils;
+import online.store.security.JwtUtils;
 import online.store.security.services.UserDetailsImpl;
 
+import online.store.security.services.UserDetailsServiceImpl;
 import online.store.services.RoleService;
 import online.store.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,17 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @Data
-@RequestMapping("/auth") // /api/auth
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
+
+//    private final UserDetailsServiceImpl userDetailsService;
+
     @Autowired
     UserService userService;
 
+    @Autowired
     RoleService roleService;
 
     @Autowired
@@ -50,8 +55,17 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @GetMapping("hello")
+    public ResponseEntity<String> sayHello(){
+        return ResponseEntity.ok("Hello from our API");
+    }
+
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(
+            @Valid @RequestBody LoginRequest loginRequest) {
+
+//        final UserDetailsImpl user = (UserDetailsImpl) userDetailsService.loadUserByUsername(loginRequest.getEmail());
+
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
@@ -64,11 +78,9 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getFirstName(),
-                userDetails.getLastName(),
-                userDetails.getEmail(),
+        return ResponseEntity.ok(new JwtResponse( // TODO CHECK!!
+                jwt,
+                userDetails.getUsername(),
                 roles));
     }
 

@@ -1,6 +1,5 @@
 package online.store.controllers;
 
-import lombok.Data;
 import online.store.models.Reviews;
 import online.store.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Data
-@RequestMapping("/review")
-public class ReviewController {
+@RequestMapping("/store")
+public class StoreController {
+
 
     @Autowired
     private ReviewService reviewService;
@@ -22,9 +21,13 @@ public class ReviewController {
     }
 
 
-
-
-
-
-    }
-
+    /*
+        http://store</st/>
+    * - формирование заказа /create-order
+    *   ---- хранение\сохранение корзины покупок /cart
+    *   ---- проверка наличия продуктов
+    *   ---- переход по категориям: store/smartphone/apple..
+    * - отправка письма /email
+    *
+    * */
+}

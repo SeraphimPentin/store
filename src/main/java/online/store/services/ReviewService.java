@@ -1,15 +1,12 @@
 package online.store.services;
 
 import online.store.models.Reviews;
-import online.store.models.User;
 import online.store.repository.ReviewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-
-import static online.store.models.ERole.ROLE_ADMIN;
 
 @Service
 @Transactional
@@ -30,7 +27,12 @@ public class ReviewService {
         return reviewsRepository.save(reviews);
     }
 
-    public void delete(Reviews reviews){
+//    boolean isAuthorized() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        return authentication.        //isAuthenticated();
+//    }
+
+    public void deleteReview(Reviews reviews){
         reviewsRepository.delete(reviews);
     }
  }

@@ -1,7 +1,10 @@
 package online.store.email;
 
+import lombok.Data;
+
 import java.util.Map;
 
+@Data
 public abstract class AbstractEmailContext {
 
     private String from;
@@ -14,5 +17,4 @@ public abstract class AbstractEmailContext {
     private String displayName;
     private String templateLocation;
     private Map<String, Object> context;
-    //getter and seter methods
 }
